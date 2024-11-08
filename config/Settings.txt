@@ -1,0 +1,4 @@
+userName=TestAccount4242
+userSite=AniList
+incOp=1
+incEd=1
