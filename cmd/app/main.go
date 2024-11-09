@@ -17,7 +17,7 @@ func main() {
 
 	aniLodies := api.GetAniLodies(userSettings)
 	for i, aniLody := range aniLodies {
-		musicName := client.DownloadFile(aniLody, userSettings)
+		musicName := client.FetchAniLody(aniLody, userSettings)
 		if musicName != "" {
 			fmt.Printf("%d/%d - %s (%s)\n", i+1, len(aniLodies), aniLody.AudioURL, musicName)
 		} else {
