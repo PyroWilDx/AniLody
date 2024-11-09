@@ -29,10 +29,10 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 
 	imgPath := fetchImage(aniLody.ImageURL, userSettings)
 	addImage(musicPathMp3, imgPath)
-	//err = os.Remove(imgPath)
-	//if err != nil {
-	//	panic(fmt.Sprintf("Failed Removing File %s", imgPath))
-	//}
+	err = os.Remove(imgPath)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Removing File %s", imgPath))
+	}
 
 	return musicName
 }
