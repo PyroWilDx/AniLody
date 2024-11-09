@@ -7,12 +7,37 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
 )
 
-func DownloadFile(aniLody models.AniLody, userSettings models.UserSettings) string {
+const imgName = "Tmp.jpg"
+
+func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) string {
+	musicName, musicPathOgg, musicPathMp3 := fetchAniLodyOgg(aniLody, userSettings)
+	if musicName == "" {
+		return ""
+	}
+
+	convertOggToMp3(musicPathOgg, musicPathMp3)
+	err := os.Remove(musicPathOgg)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Removing File %s", musicPathOgg))
+	}
+
+	imgPath := fetchImage(aniLody.ImageURL, userSettings)
+	addImage(musicPathMp3, imgPath)
+	//err = os.Remove(imgPath)
+	//if err != nil {
+	//	panic(fmt.Sprintf("Failed Removing File %s", imgPath))
+	//}
+
+	return musicName
+}
+
+func fetchAniLodyOgg(aniLody models.AniLody, userSettings models.UserSettings) (string, string, string) {
 	audioFile, err := http.Get(aniLody.AudioURL)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Downloading %s", aniLody.AudioURL))
@@ -20,7 +45,7 @@ func DownloadFile(aniLody models.AniLody, userSettings models.UserSettings) stri
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			panic(fmt.Sprintf("Failed Closing Connection"))
+			panic(fmt.Sprintf("Failed Closing Connection %s", aniLody.AudioURL))
 		}
 	}(audioFile.Body)
 
@@ -29,30 +54,31 @@ func DownloadFile(aniLody models.AniLody, userSettings models.UserSettings) stri
 	}
 
 	musicName := calcMusicName(aniLody, userSettings)
-	musicPath := filepath.Join(userSettings.OutPath, musicName)
+	musicPathOgg := filepath.Join(userSettings.OutPath, musicName+".ogg")
+	musicPathMp3 := filepath.Join(userSettings.OutPath, musicName+".mp3")
 
-	_, err = os.Stat(musicPath)
+	_, err = os.Stat(musicPathMp3)
 	if err == nil {
-		return ""
+		return "", "", ""
 	}
 
-	outFile, err := os.Create(musicPath)
+	outFile, err := os.Create(musicPathOgg)
 	if err != nil {
-		panic(fmt.Sprintf("Failed Creating File %s", musicPath))
+		panic(fmt.Sprintf("Failed Creating File %s", musicPathOgg))
 	}
 	defer func(outFile *os.File) {
 		err := outFile.Close()
 		if err != nil {
-			panic(fmt.Sprintf("Failed Closing File %s", musicPath))
+			panic(fmt.Sprintf("Failed Closing File %s", musicPathOgg))
 		}
 	}(outFile)
 
 	_, err = io.Copy(outFile, audioFile.Body)
 	if err != nil {
-		panic(fmt.Sprintf("Failed Saving File %s", musicPath))
+		panic(fmt.Sprintf("Failed Saving File %s", musicPathOgg))
 	}
 
-	return musicName
+	return musicName, musicPathOgg, musicPathMp3
 }
 
 func calcMusicName(aniLody models.AniLody, userSettings models.UserSettings) string {
@@ -64,7 +90,6 @@ func calcMusicName(aniLody models.AniLody, userSettings models.UserSettings) str
 	if userSettings.CapWords {
 		musicName = capWords(musicName)
 	}
-	musicName += ".ogg"
 	return musicName
 }
 
@@ -86,4 +111,53 @@ func capWords(musicName string) string {
 		lastChar = currChar
 	}
 	return musicNameBuilder.String()
+}
+
+func convertOggToMp3(musicPathOgg string, musicPathMp3 string) {
+	cmd := exec.Command("bin/ffmpeg", "-i", musicPathOgg, "-vn", "-ar", "44100", "-ac", "2", "-b:a", "192k", musicPathMp3)
+	err := cmd.Run()
+	if err != nil {
+		panic(fmt.Sprintf("Failed Converting File %s", musicPathOgg))
+	}
+}
+
+func fetchImage(imgURL string, userSettings models.UserSettings) string {
+	imgFile, err := http.Get(imgURL)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Downloading %s", imgURL))
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			panic(fmt.Sprintf("Failed Closing Connection %s", imgURL))
+		}
+	}(imgFile.Body)
+
+	if imgFile.StatusCode != http.StatusOK {
+		panic(fmt.Sprintf("Failed Downloading %s (%d)", imgURL, imgFile.StatusCode))
+	}
+
+	imgPath := filepath.Join(userSettings.OutPath, imgName)
+
+	outFile, err := os.Create(imgPath)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Creating File %s", imgPath))
+	}
+	defer func(outFile *os.File) {
+		err := outFile.Close()
+		if err != nil {
+			panic(fmt.Sprintf("Failed Closing File %s", imgPath))
+		}
+	}(outFile)
+
+	_, err = io.Copy(outFile, imgFile.Body)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Saving File %s", imgPath))
+	}
+
+	return imgPath
+}
+
+func addImage(musicPathMp3 string, imgPath string) {
+
 }
