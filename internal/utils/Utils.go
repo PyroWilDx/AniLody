@@ -11,3 +11,15 @@ func IntSliceToStrSlice(intSlice []int) []string {
 	}
 	return strSlice
 }
+
+func IsLetter(c byte) bool {
+	return IsLowerCaseLetter(c) || IsUpperCaseLetter(c)
+}
+
+func IsLowerCaseLetter(c byte) bool {
+	return c >= 'a' && c <= 'z'
+}
+
+func IsUpperCaseLetter(c byte) bool {
+	return c >= 'A' && c <= 'Z'
+}

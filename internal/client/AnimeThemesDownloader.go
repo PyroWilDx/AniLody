@@ -2,6 +2,7 @@ package client
 
 import (
 	"anilody/internal/models"
+	"anilody/internal/utils"
 	"fmt"
 	"io"
 	"net/http"
@@ -75,11 +76,10 @@ func handleSpaces(musicName string) string {
 
 func capWords(musicName string) string {
 	var musicNameBuilder strings.Builder
-	var lastChar uint8 = ' '
+	var lastChar byte = ' '
 	for i := 0; i < len(musicName); i++ {
 		currChar := musicName[i]
-		if (!((lastChar >= 'a' && lastChar <= 'z') || (lastChar >= 'A' && lastChar <= 'Z'))) &&
-			(currChar >= 'a' && currChar <= 'z') {
+		if !utils.IsLetter(lastChar) && utils.IsLowerCaseLetter(currChar) {
 			currChar -= 32
 		}
 		musicNameBuilder.WriteByte(currChar)
