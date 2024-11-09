@@ -1,4 +1,10 @@
 userName=TestAccount4242
 userSite=AniList
+
+outPath=out
+musicNameFormat=#Title - #Slug
+capWords=1
+addImage=1
+
 incOp=1
 incEd=1

@@ -47,6 +47,16 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 		userSettings.UserName = value
 	case "userSite":
 		userSettings.UserSite = value
+
+	case "outPath":
+		userSettings.OutPath = value
+	case "musicNameFormat":
+		userSettings.MusicNameFormat = value
+	case "capWords":
+		userSettings.CapWords = value != "0"
+	case "addImage":
+		userSettings.AddImage = value != "0"
+
 	case "incOp":
 		userSettings.IncOp = value != "0"
 	case "incEd":

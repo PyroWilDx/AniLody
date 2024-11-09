@@ -1,19 +1,19 @@
 package api
 
 import (
-	"anilody/internal/data"
+	"anilody/internal/client"
 	"anilody/internal/models"
 	"strings"
 )
 
-func GetAniLody(userSettings models.UserSettings) []models.AniLody {
+func GetAniLodies(userSettings models.UserSettings) []models.AniLody {
 	var aniLodies []models.AniLody
 
-	userIds := data.GetPublicAniList(userSettings.UserName)
+	userIds := client.GetPublicAniList(userSettings.UserName)
 
-	userAnimes, perPage := data.GetAnimeThemes(userIds, userSettings.UserSite, 0, 1)
+	userAnimes, perPage := client.GetAnimeThemes(userIds, userSettings.UserSite, 0, 1)
 	for i := 0; i < len(userIds); i += perPage {
-		userAnimes, perPage = data.GetAnimeThemes(userIds, userSettings.UserSite, i, perPage)
+		userAnimes, perPage = client.GetAnimeThemes(userIds, userSettings.UserSite, i, perPage)
 
 		for _, anime := range userAnimes {
 			for _, animeTheme := range anime.AnimeThemes {

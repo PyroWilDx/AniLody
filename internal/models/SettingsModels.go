@@ -3,6 +3,12 @@ package models
 type UserSettings struct {
 	UserName string
 	UserSite string
-	IncOp    bool
-	IncEd    bool
+
+	OutPath         string
+	MusicNameFormat string
+	CapWords        bool
+	AddImage        bool
+
+	IncOp bool
+	IncEd bool
 }
