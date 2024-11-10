@@ -11,4 +11,8 @@ type UserSettings struct {
 
 	IncOp bool
 	IncEd bool
+
+	MinScore   float32
+	MaxScore   float32
+	StatusList []string
 }
