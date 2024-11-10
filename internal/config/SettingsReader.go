@@ -2,6 +2,7 @@ package config
 
 import (
 	"anilody/internal/models"
+	"anilody/internal/utils"
 	"bufio"
 	"fmt"
 	"os"
@@ -24,7 +25,7 @@ func ReadUserSettings(sPath string) models.UserSettings {
 	fileScanner := bufio.NewScanner(sFile)
 	for fileScanner.Scan() {
 		currLine := fileScanner.Text()
-		if currLine == "" {
+		if currLine == "" || currLine[0] == '#' {
 			continue
 		}
 
@@ -61,5 +62,12 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 		userSettings.IncOp = value != "0"
 	case "incEd":
 		userSettings.IncEd = value != "0"
+
+	case "minScore":
+		userSettings.MinScore = utils.ParseFloat32(value)
+	case "maxScore":
+		userSettings.MaxScore = utils.ParseFloat32(value)
+	case "statusList":
+		userSettings.StatusList = strings.Split(value, "|")
 	}
 }

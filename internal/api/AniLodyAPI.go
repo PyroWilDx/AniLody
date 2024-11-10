@@ -9,7 +9,7 @@ import (
 func GetAniLodies(userSettings models.UserSettings) []models.AniLody {
 	var aniLodies []models.AniLody
 
-	userIds := client.GetPublicAniList(userSettings.UserName)
+	userIds := client.GetPublicAniList(userSettings.UserName, userSettings)
 
 	userAnimes, perPage := client.GetAnimeThemes(userIds, userSettings.UserSite, 0, 1)
 	for i := 0; i < len(userIds); i += perPage {
@@ -29,10 +29,11 @@ func GetAniLodies(userSettings models.UserSettings) []models.AniLody {
 
 					for _, video := range animeThemeEntry.Videos {
 						aniLodies = append(aniLodies, models.AniLody{
-							ImageURL: anime.Images[0].Link,
-							Title:    anime.Name,
-							Slug:     getSlug(animeTheme.Slug),
-							AudioURL: video.Audio.Link,
+							ImageURL:   anime.Images[0].Link,
+							AnimeTitle: anime.Name,
+							Slug:       getSlug(animeTheme.Slug),
+							SongTitle:  animeTheme.Song.Title,
+							AudioURL:   video.Audio.Link,
 						})
 
 						break

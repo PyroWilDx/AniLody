@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"strconv"
 )
 
@@ -22,4 +23,12 @@ func IsLowerCaseLetter(c byte) bool {
 
 func IsUpperCaseLetter(c byte) bool {
 	return c >= 'A' && c <= 'Z'
+}
+
+func ParseFloat32(value string) float32 {
+	f64, err := strconv.ParseFloat(value, 32)
+	if err != nil {
+		panic(fmt.Sprintf("Error Parsing %s", value))
+	}
+	return float32(f64)
 }

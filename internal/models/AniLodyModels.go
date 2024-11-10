@@ -5,8 +5,9 @@ type AniLodyResponse struct {
 }
 
 type AniLody struct {
-	ImageURL string `json:"imageURL"`
-	Title    string `json:"title"`
-	Slug     string `json:"slug"`
-	AudioURL string `json:"audioURL"`
+	ImageURL   string `json:"imageURL"`
+	AnimeTitle string `json:"animeTitle"`
+	Slug       string `json:"slug"`
+	SongTitle  string `json:"songTitle"`
+	AudioURL   string `json:"audioURL"`
 }
