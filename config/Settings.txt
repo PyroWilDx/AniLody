@@ -1,10 +1,41 @@
+# Put your userName here.
 userName=TestAccount4242
+
+# Where your anime list will be fetched from.
+#   AniList: https://anilist.co/
 userSite=AniList
 
+# Path where downloaded songs will be put.
 outPath=out
-musicNameFormat=#Title - #Slug
+
+# Name format for each song file.
+#   #AnimeTitle: Title of the anime.
+#   #Slug: OpN for the opening number N, EdN for the ending number N.
+musicNameFormat=#AnimeTitle - #Slug (#SongTitle)
+
+# Capitalize the first letter of every words.
 capWords=1
+
+# Add anime key visual to the songs.
 addImage=1
 
+# Download openings.
 incOp=1
+
+# Download endings.
 incEd=1
+
+# Minimum score on your anime list that the animes should have.
+minScore=0.0
+
+# Maximum score on your anime list that the animes should have.
+maxScore=100.0
+
+# All status on your anime list that the animes should have.
+#   COMPLETED: Completed status.
+#   CURRENT: Currently watching status.
+#   REPEATING: Currently re-watching status.
+#   PAUSED: Paused status.
+#   DROPPED: Dropped status.
+#   PLANNING: Planning status.
+statusList=COMPLETED|CURRENT|REPEATING|PAUSED|DROPPED|PLANNING

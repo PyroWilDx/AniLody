@@ -13,21 +13,28 @@ import (
 	"strings"
 )
 
+const ffPath = "bin/ffmpeg"
 const imgName = "Tmp.jpg"
 
 func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) string {
-	musicName, musicPathOgg, musicPathMp3 := fetchAniLodyOgg(aniLody, userSettings)
-	if musicName == "" {
+	musicName := calcMusicName(aniLody, userSettings)
+	musicPathOgg := filepath.Join(userSettings.OutPath, musicName+".ogg")
+	musicPathMp3 := filepath.Join(userSettings.OutPath, musicName+".mp3")
+
+	_, err := os.Stat(musicPathMp3)
+	if err == nil {
 		return ""
 	}
 
+	dlOgg(aniLody, musicPathOgg)
+
 	convertOggToMp3(musicPathOgg, musicPathMp3)
-	err := os.Remove(musicPathOgg)
+	err = os.Remove(musicPathOgg)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Removing File %s", musicPathOgg))
 	}
 
-	imgPath := fetchImage(aniLody.ImageURL, userSettings)
+	imgPath := dlImage(aniLody.ImageURL, userSettings)
 	addImage(musicPathMp3, imgPath)
 	err = os.Remove(imgPath)
 	if err != nil {
@@ -37,7 +44,7 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 	return musicName
 }
 
-func fetchAniLodyOgg(aniLody models.AniLody, userSettings models.UserSettings) (string, string, string) {
+func dlOgg(aniLody models.AniLody, musicPathOgg string) {
 	audioFile, err := http.Get(aniLody.AudioURL)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Downloading %s", aniLody.AudioURL))
@@ -51,15 +58,6 @@ func fetchAniLodyOgg(aniLody models.AniLody, userSettings models.UserSettings) (
 
 	if audioFile.StatusCode != http.StatusOK {
 		panic(fmt.Sprintf("Failed Downloading %s (%d)", aniLody.AudioURL, audioFile.StatusCode))
-	}
-
-	musicName := calcMusicName(aniLody, userSettings)
-	musicPathOgg := filepath.Join(userSettings.OutPath, musicName+".ogg")
-	musicPathMp3 := filepath.Join(userSettings.OutPath, musicName+".mp3")
-
-	_, err = os.Stat(musicPathMp3)
-	if err == nil {
-		return "", "", ""
 	}
 
 	outFile, err := os.Create(musicPathOgg)
@@ -77,14 +75,13 @@ func fetchAniLodyOgg(aniLody models.AniLody, userSettings models.UserSettings) (
 	if err != nil {
 		panic(fmt.Sprintf("Failed Saving File %s", musicPathOgg))
 	}
-
-	return musicName, musicPathOgg, musicPathMp3
 }
 
 func calcMusicName(aniLody models.AniLody, userSettings models.UserSettings) string {
 	musicName := userSettings.MusicNameFormat
-	musicName = strings.Replace(musicName, "#Title", aniLody.Title, -1)
+	musicName = strings.Replace(musicName, "#AnimeTitle", aniLody.AnimeTitle, -1)
 	musicName = strings.Replace(musicName, "#Slug", aniLody.Slug, -1)
+	musicName = strings.Replace(musicName, "#SongTitle", aniLody.SongTitle, -1)
 	musicName = regexp.MustCompile(`[^a-zA-Z0-9\- ]`).ReplaceAllString(musicName, "")
 	musicName = handleSpaces(musicName)
 	if userSettings.CapWords {
@@ -101,27 +98,37 @@ func handleSpaces(musicName string) string {
 
 func capWords(musicName string) string {
 	var musicNameBuilder strings.Builder
-	var lastChar byte = ' '
+	var prevChar byte = ' '
 	for i := 0; i < len(musicName); i++ {
 		currChar := musicName[i]
-		if !utils.IsLetter(lastChar) && utils.IsLowerCaseLetter(currChar) {
+		if !utils.IsLetter(prevChar) && utils.IsLowerCaseLetter(currChar) {
 			currChar -= 32
 		}
 		musicNameBuilder.WriteByte(currChar)
-		lastChar = currChar
+		prevChar = currChar
 	}
 	return musicNameBuilder.String()
 }
 
 func convertOggToMp3(musicPathOgg string, musicPathMp3 string) {
-	cmd := exec.Command("bin/ffmpeg", "-i", musicPathOgg, "-vn", "-ar", "44100", "-ac", "2", "-b:a", "192k", musicPathMp3)
+	cmd := exec.Command(ffPath,
+		"-i",
+		musicPathOgg,
+		"-vn",
+		"-ar",
+		"44100",
+		"-ac",
+		"2",
+		"-b:a",
+		"192k",
+		musicPathMp3)
 	err := cmd.Run()
 	if err != nil {
 		panic(fmt.Sprintf("Failed Converting File %s", musicPathOgg))
 	}
 }
 
-func fetchImage(imgURL string, userSettings models.UserSettings) string {
+func dlImage(imgURL string, userSettings models.UserSettings) string {
 	imgFile, err := http.Get(imgURL)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Downloading %s", imgURL))
@@ -159,5 +166,34 @@ func fetchImage(imgURL string, userSettings models.UserSettings) string {
 }
 
 func addImage(musicPathMp3 string, imgPath string) {
+	tmpOutputPath := musicPathMp3 + ".temp"
 
+	cmd := exec.Command(ffPath,
+		"-i",
+		musicPathMp3,
+		"-i",
+		imgPath,
+		"-map",
+		"0:0",
+		"-map",
+		"1:0",
+		"-c",
+		"copy",
+		"-id3v2_version",
+		"3",
+		"-metadata:s:v",
+		"title=Album Cover",
+		"-metadata:s:v",
+		"comment=Cover",
+		tmpOutputPath,
+	)
+	err := cmd.Run()
+	if err != nil {
+		panic(fmt.Sprintf("Failed Adding Image"))
+	}
+
+	err = os.Rename(tmpOutputPath, musicPathMp3)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Replacing File"))
+	}
 }

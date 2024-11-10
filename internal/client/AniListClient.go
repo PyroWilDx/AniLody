@@ -5,11 +5,12 @@ import (
 	"context"
 	"github.com/machinebox/graphql"
 	"log"
+	"slices"
 )
 
 var baseUrlAniList = "https://graphql.anilist.co"
 
-func GetPublicAniList(userName string) []int {
+func GetPublicAniList(userName string, userSettings models.UserSettings) []int {
 	client := graphql.NewClient(baseUrlAniList)
 
 	req := graphql.NewRequest(`
@@ -40,6 +41,13 @@ func GetPublicAniList(userName string) []int {
 	var userIds []int
 	for _, list := range userList.MediaListCollection.Lists {
 		for _, entry := range list.Entries {
+			if entry.Score < userSettings.MinScore ||
+				entry.Score > userSettings.MaxScore {
+				continue
+			}
+			if !slices.Contains(userSettings.StatusList, entry.Status) {
+				continue
+			}
 			userIds = append(userIds, entry.Media.Id)
 		}
 	}
