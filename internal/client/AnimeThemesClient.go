@@ -39,7 +39,7 @@ func GetAnimeThemes(userIds []int, userSite string, currIndex int, perPage int) 
 func execAnimeThemesQuery(queryParams url.Values) *models.AnimeThemesResponse {
 	queryURL := fmt.Sprintf("%s?%s", baseUrlAnimeThemes, queryParams.Encode())
 
-	log.Println("Query AnimeThemes:", queryURL)
+	fmt.Println("Query AnimeThemes:", queryURL)
 
 	queryResp, err := http.Get(queryURL)
 	if err != nil {
