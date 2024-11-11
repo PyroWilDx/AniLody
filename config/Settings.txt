@@ -1,5 +1,5 @@
 # Source website for your anime list.
-# Options:
+# Options ->
 #   AniList - https://anilist.co/
 userSite=AniList
 
@@ -17,7 +17,7 @@ outPath=out
 threadsCount=6
 
 # Naming format for each song file.
-# Variables:
+# Variables ->
 #   #AnimeTitle - Title of the anime.
 #   #Slug - Song type and number (e.g. OpN for opening number N, EdN for ending number N.)
 #   #SongTitle - Title of the song.
@@ -29,6 +29,9 @@ capWords=1
 # Lower every letter (except the first one) of each word in song file names.
 lowWords=1
 
+# Format 1st, 2nd, 3rd, etc. to First, Second, Third, etc.
+fmtNums=1
+
 # Add anime key visual as an image to the song files.
 addImage=1
 
@@ -36,7 +39,7 @@ addImage=1
 incOp=1
 
 # Download ending theme songs.
-incEd=1
+incEd=0
 
 # Minimum score an anime must have on your list to be included.
 minScore=0.0
@@ -45,11 +48,11 @@ minScore=0.0
 maxScore=100.0
 
 # Filter by anime status in your list.
-# Status options (use '|' to separate multiple statuses):
+# Status options (use '|' to separate multiple statuses) ->
 #   COMPLETED - Anime you've finished.
 #   CURRENT - Anime you're currently watching.
 #   REPEATING - Anime you're re-watching.
 #   PAUSED - Anime you've paused.
 #   DROPPED - Anime you've dropped.
 #   PLANNING - Anime you plan to watch.
-statusList=COMPLETED|CURRENT|REPEATING|PAUSED|DROPPED|PLANNING
+statusList=COMPLETED|CURRENT|REPEATING
