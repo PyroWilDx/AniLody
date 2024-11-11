@@ -6,6 +6,7 @@ import (
 	"anilody/internal/config"
 	"fmt"
 	"os"
+	"sync"
 )
 
 func main() {
@@ -16,12 +17,28 @@ func main() {
 	}
 
 	aniLodies := api.GetAniLodies(userSettings)
-	for i, aniLody := range aniLodies {
-		musicName := client.FetchAniLody(aniLody, userSettings)
-		if musicName != "" {
-			fmt.Printf("%d/%d - %s (%s)\n", i+1, len(aniLodies), aniLody.AudioURL, musicName)
-		} else {
-			fmt.Printf("%d/%d - %s (Already Downloaded)\n", i+1, len(aniLodies), aniLody.AudioURL)
-		}
+
+	var wg sync.WaitGroup
+	semaphore := make(chan struct{}, userSettings.ThreadsCount)
+
+	i := 0
+	for _, aniLody := range aniLodies {
+		wg.Add(1)
+		semaphore <- struct{}{}
+
+		go func() {
+			defer wg.Done()
+			defer func() { <-semaphore }()
+
+			musicName := client.FetchAniLody(aniLody, userSettings)
+			if musicName != "" {
+				fmt.Printf("%d/%d - %s (%s)\n", i+1, len(aniLodies), aniLody.AudioURL, musicName)
+			} else {
+				fmt.Printf("%d/%d - %s (Already Downloaded)\n", i+1, len(aniLodies), aniLody.AudioURL)
+			}
+			i++
+		}()
 	}
+
+	wg.Wait()
 }

@@ -25,10 +25,18 @@ func IsUpperCaseLetter(c byte) bool {
 	return c >= 'A' && c <= 'Z'
 }
 
+func ParseInt(value string) int {
+	i, err := strconv.Atoi(value)
+	if err != nil {
+		panic(fmt.Sprintf("Error Parsing Int %s", value))
+	}
+	return i
+}
+
 func ParseFloat32(value string) float32 {
 	f64, err := strconv.ParseFloat(value, 32)
 	if err != nil {
-		panic(fmt.Sprintf("Error Parsing %s", value))
+		panic(fmt.Sprintf("Error Parsing Float %s", value))
 	}
 	return float32(f64)
 }
