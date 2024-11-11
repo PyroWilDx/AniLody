@@ -18,6 +18,8 @@ func main() {
 
 	aniLodies := api.GetAniLodies(userSettings)
 
+	fmt.Println("Starting Download...")
+
 	var wg sync.WaitGroup
 	semaphore := make(chan struct{}, userSettings.ThreadsCount)
 
@@ -41,4 +43,6 @@ func main() {
 	}
 
 	wg.Wait()
+
+	fmt.Println("Finished Download.")
 }

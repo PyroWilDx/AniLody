@@ -84,6 +84,9 @@ func calcMusicName(aniLody models.AniLody, userSettings models.UserSettings) str
 	musicName = strings.Replace(musicName, "#SongTitle", aniLody.SongTitle, -1)
 	musicName = cleanMusicName(musicName)
 	musicName = handleSpaces(musicName)
+	if userSettings.FmtNums {
+		musicName = fmtNums(musicName)
+	}
 	if userSettings.CapWords {
 		musicName = capWords(musicName, userSettings.LowWords)
 	}
@@ -109,12 +112,23 @@ func handleSpaces(musicName string) string {
 	return musicName
 }
 
+func fmtNums(musicName string) string {
+	musicName = regexp.MustCompile(`\b(\d{1,2}(st|nd|rd|th))\b`).ReplaceAllStringFunc(musicName, func(m string) string {
+		repl, in := utils.OrdMap[m]
+		if in {
+			return repl
+		}
+		return m
+	})
+	return musicName
+}
+
 func capWords(musicName string, lowWords bool) string {
 	var musicNameBuilder strings.Builder
 	var prevChar byte = ' '
 	for i := 0; i < len(musicName); i++ {
 		currChar := musicName[i]
-		if !utils.IsLetter(prevChar) && utils.IsLowerCaseLetter(currChar) {
+		if !utils.IsLetter(prevChar) && prevChar != '\'' && utils.IsLowerCaseLetter(currChar) {
 			currChar -= 32
 		}
 		if lowWords && utils.IsLetter(prevChar) && utils.IsUpperCaseLetter(currChar) {

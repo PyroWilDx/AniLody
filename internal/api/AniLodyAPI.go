@@ -9,7 +9,11 @@ import (
 func GetAniLodies(userSettings models.UserSettings) []models.AniLody {
 	var aniLodies []models.AniLody
 
-	userIds := client.GetPublicAniList(userSettings.UserName, userSettings)
+	var userIds []int
+	switch userSettings.UserSite {
+	case "AniList":
+		userIds = client.GetPublicAniList(userSettings.UserName, userSettings)
+	}
 
 	userAnimes, perPage := client.GetAnimeThemes(userIds, userSettings.UserSite, 0, 1)
 	for i := 0; i < len(userIds); i += perPage {

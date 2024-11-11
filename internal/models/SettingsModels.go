@@ -10,6 +10,7 @@ type UserSettings struct {
 	MusicNameFormat string
 	CapWords        bool
 	LowWords        bool
+	FmtNums         bool
 	AddImage        bool
 
 	IncOp bool
