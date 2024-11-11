@@ -13,7 +13,7 @@ func main() {
 	userSettings := config.ReadUserSettings("config/Settings.txt")
 	err := os.MkdirAll(userSettings.OutPath, os.ModePerm)
 	if err != nil {
-		panic(fmt.Sprintf("Failed Creating Folder %s\n", userSettings.OutPath))
+		panic(fmt.Sprintf("Failed Creating Folder %s\n%v", userSettings.OutPath, err))
 	}
 
 	aniLodies := api.GetAniLodies(userSettings)
