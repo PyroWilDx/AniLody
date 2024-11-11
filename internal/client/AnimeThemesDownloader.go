@@ -35,7 +35,7 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 	}
 
 	imgPath := dlImage(aniLody.ImageURL, userSettings)
-	addImage(musicPathMp3, imgPath)
+	addImage(userSettings.OutPath, musicPathMp3, imgPath)
 	err = os.Remove(imgPath)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Removing File %s", imgPath))
@@ -82,7 +82,7 @@ func calcMusicName(aniLody models.AniLody, userSettings models.UserSettings) str
 	musicName = strings.Replace(musicName, "#AnimeTitle", aniLody.AnimeTitle, -1)
 	musicName = strings.Replace(musicName, "#Slug", aniLody.Slug, -1)
 	musicName = strings.Replace(musicName, "#SongTitle", aniLody.SongTitle, -1)
-	musicName = regexp.MustCompile(`[^a-zA-Z0-9\- ]`).ReplaceAllString(musicName, "")
+	musicName = regexp.MustCompile(`[^a-zA-Z0-9\-() ]`).ReplaceAllString(musicName, "")
 	musicName = handleSpaces(musicName)
 	if userSettings.CapWords {
 		musicName = capWords(musicName)
@@ -165,8 +165,8 @@ func dlImage(imgURL string, userSettings models.UserSettings) string {
 	return imgPath
 }
 
-func addImage(musicPathMp3 string, imgPath string) {
-	tmpOutputPath := musicPathMp3 + ".temp"
+func addImage(outPath, musicPathMp3 string, imgPath string) {
+	tmpOutputPath := filepath.Join(outPath, "Tmp.mp3")
 
 	cmd := exec.Command(ffPath,
 		"-i",
@@ -182,14 +182,14 @@ func addImage(musicPathMp3 string, imgPath string) {
 		"-id3v2_version",
 		"3",
 		"-metadata:s:v",
-		"title=Album Cover",
+		"title='KeyVisual'",
 		"-metadata:s:v",
-		"comment=Cover",
+		"comment='KeyVisual'",
 		tmpOutputPath,
 	)
 	err := cmd.Run()
 	if err != nil {
-		panic(fmt.Sprintf("Failed Adding Image"))
+		panic(fmt.Sprintf("Failed Adding Image\n%v", err))
 	}
 
 	err = os.Rename(tmpOutputPath, musicPathMp3)
