@@ -55,6 +55,8 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 		userSettings.MusicNameFormat = value
 	case "capWords":
 		userSettings.CapWords = value != "0"
+	case "lowWords":
+		userSettings.LowWords = value != "0"
 	case "addImage":
 		userSettings.AddImage = value != "0"
 

@@ -19,6 +19,9 @@ musicNameFormat=#AnimeTitle - #Slug (#SongTitle)
 # Capitalize the first letter of each word in song file names.
 capWords=1
 
+# Lower every letter (except the first one) of each word in song file names.
+lowWords=1
+
 # Add anime key visual as an image to the song files.
 addImage=1
 
