@@ -14,7 +14,6 @@ import (
 )
 
 const ffPath = "bin/ffmpeg"
-const imgName = "Tmp.jpg"
 
 func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) string {
 	musicName := calcMusicName(aniLody, userSettings)
@@ -34,7 +33,8 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 		panic(fmt.Sprintf("Failed Removing File %s", musicPathOgg))
 	}
 
-	imgPath := dlImage(aniLody.ImageURL, userSettings)
+	imgPath := musicPathMp3 + ".jpg"
+	dlImage(aniLody.ImageURL, imgPath)
 	addImage(musicPathMp3, imgPath)
 	err = os.Remove(imgPath)
 	if err != nil {
@@ -144,7 +144,7 @@ func convertOggToMp3(musicPathOgg string, musicPathMp3 string) {
 	}
 }
 
-func dlImage(imgURL string, userSettings models.UserSettings) string {
+func dlImage(imgURL string, imgPath string) {
 	imgFile, err := http.Get(imgURL)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Downloading %s", imgURL))
@@ -159,8 +159,6 @@ func dlImage(imgURL string, userSettings models.UserSettings) string {
 	if imgFile.StatusCode != http.StatusOK {
 		panic(fmt.Sprintf("Failed Downloading %s (%d)", imgURL, imgFile.StatusCode))
 	}
-
-	imgPath := filepath.Join(userSettings.OutPath, imgName)
 
 	outFile, err := os.Create(imgPath)
 	if err != nil {
@@ -177,8 +175,6 @@ func dlImage(imgURL string, userSettings models.UserSettings) string {
 	if err != nil {
 		panic(fmt.Sprintf("Failed Saving File %s", imgPath))
 	}
-
-	return imgPath
 }
 
 func addImage(musicPathMp3 string, imgPath string) {
