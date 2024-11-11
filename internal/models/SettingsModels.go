@@ -4,7 +4,9 @@ type UserSettings struct {
 	UserName string
 	UserSite string
 
-	OutPath         string
+	OutPath      string
+	ThreadsCount int
+
 	MusicNameFormat string
 	CapWords        bool
 	LowWords        bool

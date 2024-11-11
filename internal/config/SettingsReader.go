@@ -51,6 +51,9 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 
 	case "outPath":
 		userSettings.OutPath = value
+	case "threadsCount":
+		userSettings.ThreadsCount = utils.ParseInt(value)
+
 	case "musicNameFormat":
 		userSettings.MusicNameFormat = value
 	case "capWords":

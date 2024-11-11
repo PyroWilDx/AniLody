@@ -9,6 +9,13 @@ userName=TestAccount4242
 # Path to the directory where downloaded songs will be saved.
 outPath=out
 
+# Number of files to be downloaded simultaneously.
+# The optimal value depends on your download speed.
+#   Set threadsCount between 1 and 4 if your download speed is lesser than 6Mb/s.
+#   Set threadsCount between 4 and 8 if your download speed is between 6Mb/s and 40Mb/s.
+#   Set threadsCount between 8 and 16 if your download speed is greater than 40Mb/s.
+threadsCount=6
+
 # Naming format for each song file.
 # Variables:
 #   #AnimeTitle - Title of the anime.
