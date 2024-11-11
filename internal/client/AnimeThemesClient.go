@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -43,23 +42,23 @@ func execAnimeThemesQuery(queryParams url.Values) *models.AnimeThemesResponse {
 
 	queryResp, err := http.Get(queryURL)
 	if err != nil {
-		log.Fatal(err)
+		panic(fmt.Sprintf("Error Executing Query\n%v", err))
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			log.Fatal("Error Closing Body:", err)
+			panic(fmt.Sprintf("Error Closing Body\n%v", err))
 		}
 	}(queryResp.Body)
 
 	if queryResp.StatusCode != http.StatusOK {
-		log.Fatalf("Error: Received Status Code %d", queryResp.StatusCode)
+		panic(fmt.Sprintf("Error (Received Status Code %d)", queryResp.StatusCode))
 	}
 
 	var animeThemesResponse models.AnimeThemesResponse
 	err = json.NewDecoder(queryResp.Body).Decode(&animeThemesResponse)
 	if err != nil {
-		log.Fatal("Error Decoding:", err)
+		panic(fmt.Sprintf("Error Decoding Response\n%v", err))
 	}
 	return &animeThemesResponse
 }

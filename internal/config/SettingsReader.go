@@ -12,12 +12,12 @@ import (
 func ReadUserSettings(sPath string) models.UserSettings {
 	sFile, err := os.Open(sPath)
 	if err != nil {
-		panic(fmt.Sprintf("Error Opening %s: %s", sPath, err.Error()))
+		panic(fmt.Sprintf("Error Opening %s\n%v", sPath, err))
 	}
 	defer func(sFile *os.File) {
 		err := sFile.Close()
 		if err != nil {
-			panic(fmt.Sprintf("Error Closing %s: %s", sPath, err.Error()))
+			panic(fmt.Sprintf("Error Closing %s\n%v", sPath, err))
 		}
 	}(sFile)
 

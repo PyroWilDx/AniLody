@@ -3,8 +3,8 @@ package client
 import (
 	"anilody/internal/models"
 	"context"
+	"fmt"
 	"github.com/machinebox/graphql"
-	"log"
 	"slices"
 )
 
@@ -35,7 +35,7 @@ func GetPublicAniList(userName string, userSettings models.UserSettings) []int {
 	var userList models.AniListResponse
 	err := client.Run(context.Background(), req, &userList)
 	if err != nil {
-		log.Fatal(err)
+		panic(fmt.Sprintf("Error Executing Query\n%v", err))
 	}
 
 	var userIds []int
