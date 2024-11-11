@@ -7,6 +7,7 @@ type UserSettings struct {
 	OutPath         string
 	MusicNameFormat string
 	CapWords        bool
+	LowWords        bool
 	AddImage        bool
 
 	IncOp bool
