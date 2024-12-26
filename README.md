@@ -49,6 +49,15 @@ The configuration file is located at `config/Settings.txt`. Below is a list of t
     - `Dropped` - Anime you have dropped.
     - `Planning` - Anime you plan to watch.
 
+## Download
+
+<div align="center">
+
+| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/o5p3zdpinpvu9th/AniLody.zip/) |
+|---|
+
+</div>
+
 ## Development Set-Up
 
 <div align="center">
