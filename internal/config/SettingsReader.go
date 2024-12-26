@@ -76,5 +76,8 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 		userSettings.MaxScore = utils.ParseFloat32(value)
 	case "statusList":
 		userSettings.StatusList = strings.Split(value, "|")
+		for i, status := range userSettings.StatusList {
+			userSettings.StatusList[i] = strings.ToUpper(status)
+		}
 	}
 }

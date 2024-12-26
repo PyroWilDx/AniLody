@@ -1,58 +1,20 @@
-# Source website for your anime list.
-# Options ->
-#   AniList - https://anilist.co/
-userSite=AniList
+# https://github.com/PyroWilDx/AniLody#App-Set-Up
 
-# Your userName for fetching your anime list.
+userSite=AniList
 userName=TestAccount4242
 
-# Path to the directory where downloaded songs will be saved.
-outPath=out
+outPath=Out
+threadsCount=1
 
-# Number of files to be downloaded simultaneously.
-# The optimal value depends on your download speed.
-#   Set threadsCount between 1 and 4 if your download speed is lesser than 6Mb/s.
-#   Set threadsCount between 4 and 8 if your download speed is between 6Mb/s and 40Mb/s.
-#   Set threadsCount between 8 and 16 if your download speed is greater than 40Mb/s.
-threadsCount=6
-
-# Naming format for each song file.
-# Variables ->
-#   #AnimeTitle - Title of the anime.
-#   #Slug - Song type and number (e.g. OpN for opening number N, EdN for ending number N.)
-#   #SongTitle - Title of the song.
 musicNameFormat=#AnimeTitle - #Slug (#SongTitle)
-
-# Capitalize the first letter of each word in song file names.
 capWords=1
-
-# Lower every letter (except the first one) of each word in song file names.
 lowWords=1
-
-# Format 1st, 2nd, 3rd, etc. to First, Second, Third, etc.
 fmtNums=1
-
-# Add anime key visual as an image to the song files.
 addImage=1
 
-# Download opening theme songs.
 incOp=1
+incEd=1
 
-# Download ending theme songs.
-incEd=0
-
-# Minimum score an anime must have on your list to be included.
 minScore=0.0
-
-# Maximum score an anime can have on your list to be included.
 maxScore=100.0
-
-# Filter by anime status in your list.
-# Status options (use '|' to separate multiple statuses) ->
-#   COMPLETED - Anime you've finished.
-#   CURRENT - Anime you're currently watching.
-#   REPEATING - Anime you're re-watching.
-#   PAUSED - Anime you've paused.
-#   DROPPED - Anime you've dropped.
-#   PLANNING - Anime you plan to watch.
-statusList=COMPLETED|CURRENT|REPEATING
+statusList=Completed|Current|Repeating
