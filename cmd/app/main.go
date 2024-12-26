@@ -4,6 +4,7 @@ import (
 	"anilody/internal/api"
 	"anilody/internal/client"
 	"anilody/internal/config"
+	"bufio"
 	"fmt"
 	"os"
 	"sync"
@@ -45,4 +46,8 @@ func main() {
 	wg.Wait()
 
 	fmt.Println("Finished Download.")
+
+	fmt.Println("\nPress Enter...")
+	r := bufio.NewReader(os.Stdin)
+	_, _ = r.ReadString('\n')
 }
