@@ -53,7 +53,7 @@ The configuration file is located at `config/Settings.txt`. Below is a list of t
 
 <div align="center">
 
-| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/o5p3zdpinpvu9th/AniLody.zip/) |
+| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/rsr6mdbm6wlxasm/AniLody.zip/) |
 |---|
 
 </div>
