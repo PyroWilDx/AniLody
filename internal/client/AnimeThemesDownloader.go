@@ -10,10 +10,12 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
-const ffPath = "bin/ffmpeg"
+const ffMpeg = "bin/ffmpeg"
+const upScayl = "bin/UpScayl/upscayl-bin"
 
 func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) string {
 	musicName := calcMusicName(aniLody, userSettings)
@@ -35,7 +37,8 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 
 	imgPath := musicPathMp3 + ".jpg"
 	dlImage(aniLody.ImageURL, imgPath)
-	addImage(musicPathMp3, imgPath)
+	upScaleImage(imgPath, 2000)
+	applyImage(musicPathMp3, imgPath)
 	err = os.Remove(imgPath)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Removing File %s\n%v", imgPath, err))
@@ -141,7 +144,7 @@ func capWords(musicName string, lowWords bool) string {
 }
 
 func convertOggToMp3(musicPathOgg string, musicPathMp3 string) {
-	cmd := exec.Command(ffPath,
+	cmd := exec.Command(ffMpeg,
 		"-i",
 		musicPathOgg,
 		"-vn",
@@ -191,10 +194,43 @@ func dlImage(imgURL string, imgPath string) {
 	}
 }
 
-func addImage(musicPathMp3 string, imgPath string) {
+func upScaleImage(imgPath string, w int) {
+	pngImgPath := imgPath + ".png"
+
+	cmd := exec.Command(upScayl,
+		"-i", imgPath,
+		"-o", pngImgPath,
+		"-n", "realesr-animevideov3-x4",
+		"-w", strconv.Itoa(w))
+	err := cmd.Run()
+	if err != nil {
+		panic(fmt.Sprintf("Failed UpScaling Image\n%v", err))
+	}
+
+	err = os.Remove(imgPath)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Removing File %s\n%v", imgPath, err))
+	}
+
+	cmd = exec.Command(ffMpeg,
+		"-i", pngImgPath,
+		"-q:v", "2",
+		imgPath)
+	err = cmd.Run()
+	if err != nil {
+		panic(fmt.Sprintf("Failed Converting Image\n%v", err))
+	}
+
+	err = os.Remove(pngImgPath)
+	if err != nil {
+		panic(fmt.Sprintf("Failed Removing File %s\n%v", pngImgPath, err))
+	}
+}
+
+func applyImage(musicPathMp3 string, imgPath string) {
 	tmpOutputPath := musicPathMp3 + ".tmp.mp3"
 
-	cmd := exec.Command(ffPath,
+	cmd := exec.Command(ffMpeg,
 		"-i",
 		musicPathMp3,
 		"-i",
