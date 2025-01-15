@@ -62,8 +62,11 @@ func updateUserSettings(key string, value string, userSettings *models.UserSetti
 		userSettings.LowWords = value != "0"
 	case "fmtNums":
 		userSettings.FmtNums = value != "0"
-	case "addImage":
-		userSettings.AddImage = value != "0"
+
+	case "applyImage":
+		userSettings.ApplyImage = value != "0"
+	case "upScaleImageWidth":
+		userSettings.UpScaleImageWidth = value
 
 	case "incOp":
 		userSettings.IncOp = value != "0"
