@@ -6,7 +6,7 @@ AniLody utilizes [AniList API](https://docs.anilist.co/) and [AnimeThemes API](h
 
 ## App Set-Up
 
-The configuration file is located at `config/Settings.txt`. Below is a list of the available settings and their usage.
+The configuration file is located at `config/Config.txt`. Below is a list of available configurations and their usage.
 
 - `userSite` &ndash; Website from which your anime list will be fetched.
 

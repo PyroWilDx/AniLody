@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	userSettings := config.ReadUserSettings("config/Settings.txt")
+	userSettings := config.ReadUserSettings("config/Config.txt")
 	err := os.MkdirAll(userSettings.OutPath, os.ModePerm)
 	if err != nil {
 		panic(fmt.Sprintf("Failed Creating Folder %s\n%v", userSettings.OutPath, err))
