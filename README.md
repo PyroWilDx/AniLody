@@ -83,5 +83,5 @@ The configuration file is located at `config/Config.txt`. Below is a list of ava
 ---
 
 <div align="center">
-  Copyright &#169; 2024 PyroWilDx. All Rights Reserved.
+  Copyright &#169; 2025 PyroWilDx. All Rights Reserved.
 </div>
