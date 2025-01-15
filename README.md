@@ -6,6 +6,15 @@ AniLody utilizes [AniList API](https://docs.anilist.co/) and [AnimeThemes API](h
 
 ## App Set-Up
 
+### How To Use
+
+- [Download AniLody](#download).
+- Unzip `AniLody.zip`.
+- [Configurate AniLody](#configuration).
+- Run `AniLody.exe`.
+
+### Configuration
+
 The configuration file is located at `config/Config.txt`. Below is a list of available configurations and their usage.
 
 - `userSite` &ndash; Website from which your anime list will be fetched.
@@ -25,7 +34,7 @@ The configuration file is located at `config/Config.txt`. Below is a list of ava
 > [!NOTE]
 > **Example**
 >
-> If you download **Unravel** from **Tokyo Ghoul**, and use the format `#AnimeTitle - #Slug (#SongTitle)`, the resulting file name will be `Tokyo Ghoul - Op1 (Unravel)`.
+> If you download `Unravel` from `Tokyo Ghoul`, and use the format `#AnimeTitle - #Slug (#SongTitle)`, the resulting file name will be `Tokyo Ghoul - Op1 (Unravel)`.
 
 - `capWords` &ndash; Capitalize the first letter of each word in song file names.
 
