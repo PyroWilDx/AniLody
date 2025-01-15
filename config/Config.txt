@@ -10,7 +10,9 @@ musicNameFormat=#AnimeTitle - #Slug (#SongTitle)
 capWords=1
 lowWords=1
 fmtNums=1
-addImage=1
+
+applyImage=1
+upScaleImageWidth=2600
 
 incOp=1
 incEd=1

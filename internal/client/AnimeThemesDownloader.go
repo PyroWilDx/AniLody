@@ -10,7 +10,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -37,7 +36,9 @@ func FetchAniLody(aniLody models.AniLody, userSettings models.UserSettings) stri
 
 	imgPath := musicPathMp3 + ".jpg"
 	dlImage(aniLody.ImageURL, imgPath)
-	upScaleImage(imgPath, 2000)
+	if userSettings.UpScaleImageWidth != "0" {
+		upScaleImage(imgPath, userSettings.UpScaleImageWidth)
+	}
 	applyImage(musicPathMp3, imgPath)
 	err = os.Remove(imgPath)
 	if err != nil {
@@ -194,14 +195,14 @@ func dlImage(imgURL string, imgPath string) {
 	}
 }
 
-func upScaleImage(imgPath string, w int) {
+func upScaleImage(imgPath string, imgWidth string) {
 	pngImgPath := imgPath + ".png"
 
 	cmd := exec.Command(upScayl,
 		"-i", imgPath,
 		"-o", pngImgPath,
 		"-n", "realesr-animevideov3-x4",
-		"-w", strconv.Itoa(w))
+		"-w", imgWidth)
 	err := cmd.Run()
 	if err != nil {
 		panic(fmt.Sprintf("Failed UpScaling Image\n%v", err))

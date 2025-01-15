@@ -9,9 +9,11 @@ AniLody utilizes [AniList API](https://docs.anilist.co/) and [AnimeThemes API](h
 ### How To Use
 
 - [Download AniLody](#download).
-- Unzip `AniLody.zip`.
+- Extract `AniLody.zip`.
 - [Configurate AniLody](#configuration).
 - Run `AniLody.exe`.
+
+The downloaded songs will be saved in the `Out/` folder.
 
 ### Configuration
 
@@ -40,7 +42,9 @@ The configuration file is located at `config/Config.txt`. Below is a list of ava
 
 - `lowWords` &ndash; Lowercase all letters (except the first one) of each word in song file names.
 
-- `addImage` &ndash; Attach key visual image to the song files.
+- `applyImage` &ndash; Attach the key visual image to the song files.
+
+- `upScaleImageWidth` &ndash; Resize the key visual image to the specified width. Set this value to `0` to avoid resizing.
 
 - `incOp` &ndash; Enable downloading of opening theme songs.
 

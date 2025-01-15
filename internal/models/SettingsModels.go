@@ -11,7 +11,9 @@ type UserSettings struct {
 	CapWords        bool
 	LowWords        bool
 	FmtNums         bool
-	AddImage        bool
+
+	ApplyImage        bool
+	UpScaleImageWidth string
 
 	IncOp bool
 	IncEd bool
