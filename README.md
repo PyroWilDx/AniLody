@@ -17,7 +17,7 @@ The downloaded songs will be saved in the `Out/` folder.
 
 ### Configuration
 
-The configuration file is located at `config/Config.txt`. Below is a list of available configurations and their usage.
+The configuration file is located at [`config/Config.txt`](config/Config.txt). Below is a list of available configurations and their usage.
 
 - `userSite` &ndash; Website from which your anime list will be fetched.
 
@@ -66,8 +66,8 @@ The configuration file is located at `config/Config.txt`. Below is a list of ava
 
 <div align="center">
 
-| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/rsr6mdbm6wlxasm/AniLody.zip/) |
-|---|
+| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/y5s47xudckn6nsv/AniLody-Win64.zip/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" width="60"/>](https://www.mediafire.com/file/zrpb2fxe47g3l6s/AniLody-Mac64.zip/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="60"/>](https://www.mediafire.com/file/bpuu3w7cjwo7eh8/AniLody-Linux64.zip/) |
+|---|---|---|
 
 </div>
 
