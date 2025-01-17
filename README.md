@@ -17,7 +17,7 @@ The downloaded songs will be saved in the `Out/` folder.
 
 ### Configuration
 
-The configuration file is located at [`config/Config.txt`](config/Config.txt). Below is a list of available configurations and their usage.
+The configuration file is located at [`config/Config.txt`](config/Config.txt). Below is a list of the available configurations and their usage.
 
 - `userSite` &ndash; Website from which your anime list will be fetched.
 
