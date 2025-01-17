@@ -1,4 +1,4 @@
-# https://github.com/PyroWilDx/AniLody#App-Set-Up
+# Please Read https://github.com/PyroWilDx/AniLody#Configuration
 
 userSite=AniList
 userName=TestAccount4242
