@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var baseUrlAnimeThemes = "https://api.animethemes.moe/anime"
@@ -52,7 +53,13 @@ func execAnimeThemesQuery(queryParams url.Values) *models.AnimeThemesResponse {
 	}(queryResp.Body)
 
 	if queryResp.StatusCode != http.StatusOK {
-		panic(fmt.Sprintf("Error (Received Status Code %d)", queryResp.StatusCode))
+		if queryResp.StatusCode == http.StatusTooManyRequests {
+			fmt.Println("Reached Request Limit, Waiting For 10 Seconds...")
+			time.Sleep(10 * time.Second)
+			return execAnimeThemesQuery(queryParams)
+		} else {
+			panic(fmt.Sprintf("Error (Received Status Code %d)", queryResp.StatusCode))
+		}
 	}
 
 	var animeThemesResponse models.AnimeThemesResponse
