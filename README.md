@@ -82,7 +82,11 @@ The configuration file is located at [`config/Config.txt`](config/Config.txt). B
 
 ### How To Use
 
-- Run w/ Go.
+- Run [`cmd/app/AniLody.go`](cmd/app/AniLody.go) w/ Go.
+
+```
+go run cmd/app/AniLody.go
+```
 
 ---
 
