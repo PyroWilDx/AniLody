@@ -2,7 +2,7 @@
 
 [**AniLody**](https://github.com/PyroWilDx/AniLody/) is a tool for downloading opening and ending songs based on your [AniList](https://anilist.co/) anime list.
 
-AniLody utilizes [AniList API](https://docs.anilist.co/) and [AnimeThemes API](https://api-docs.animethemes.moe/) to retrieve songs.
+The [AnimeThemes API](https://api-docs.animethemes.moe/) is used to retrieve songs.
 
 ## App Set-Up
 
