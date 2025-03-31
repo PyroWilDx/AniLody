@@ -66,8 +66,8 @@ The configuration file is located at [`config/Config.txt`](config/Config.txt). B
 
 <div align="center">
 
-| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://www.mediafire.com/file/ntcniypbbezm8zz/AniLody-Win64.zip/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" width="60"/>](https://www.mediafire.com/file/kq2k3gc8s04lx5l/AniLody-Mac64.zip/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="60"/>](https://www.mediafire.com/file/3dp13u9y4uf00hv/AniLody-Linux64.zip/) |
-|---|---|---|
+| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" width="60"/>](https://www.mediafire.com/file/kq2k3gc8s04lx5l/AniLody-Mac64.zip/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="60"/>](https://www.mediafire.com/file/3dp13u9y4uf00hv/AniLody-Linux64.zip/) |
+|---|---|
 
 </div>
 
