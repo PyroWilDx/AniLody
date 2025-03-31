@@ -66,9 +66,6 @@ The configuration file is located at [`config/Config.txt`](config/Config.txt). B
 
 <div align="center">
 
-| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="60"/>](https://www.mediafire.com/file/3dp13u9y4uf00hv/AniLody-Linux64.zip/) |
-|---|
-
 </div>
 
 ## Development Set-Up
