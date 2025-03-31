@@ -66,6 +66,9 @@ The configuration file is located at [`config/Config.txt`](config/Config.txt). B
 
 <div align="center">
 
+| [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="60"/>](https://github.com/PyroWilDx/AniLody/releases/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/apple/apple-original.svg" width="60"/>](https://github.com/PyroWilDx/AniLody/releases/) | [<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" width="60"/>](https://github.com/PyroWilDx/AniLody/releases/) |
+|---|---|---|
+
 </div>
 
 ## Development Set-Up
