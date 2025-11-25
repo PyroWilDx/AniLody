@@ -1,0 +1,89 @@
+<div align="center">
+
+![Go](https://img.shields.io/badge/Language-Go-00ADD8?style=flat-square)
+![AniList](https://img.shields.io/badge/API-AniList-1AA1D2?style=flat-square)
+![AnimeThemes](https://img.shields.io/badge/API-AnimeThemes-9B59B6?style=flat-square)
+
+A tool for downloading opening and ending songs based on your [AniList](https://anilist.co/) anime list.
+
+</div>
+
+## 📥 Download
+
+<div align="center">
+
+[![Windows](https://img.shields.io/badge/Download-Windows-blue?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
+[![MacOS](https://img.shields.io/badge/Download-MacOS-000000?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
+[![Linux](https://img.shields.io/badge/Download-Linux-FCC624?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
+
+</div>
+
+## 📝 How To Use
+
+- [Download AniLody](#-download).
+- Extract `AniLody.zip`.
+- [Configurate AniLody](#configuration).
+- Run `AniLody.exe`.
+
+The downloaded songs will be saved in the `Out/` folder.
+
+### Configuration
+
+The configuration file is located at [`config/Config.txt`](config/Config.txt). Below is a list of the available configurations and their usage.
+
+- `userSite` &ndash; Website from which your anime list will be fetched.
+
+> [!NOTE]
+> Currently, only [AniList](https://anilist.co/) is supported.
+
+- `userName` &ndash; Your [AniList](https://anilist.co/) user-name.
+
+- `outPath` &ndash; Directory where the downloaded songs will be saved.
+
+- `musicNameFormat` &ndash; Format for the downloaded song file names. Below are the available variables.
+  - `#AnimeTitle` &ndash; Title of the anime.
+  - `#Slug` &ndash; Song type and number (e.g. Op1 for the first opening, Ed1 for the first ending).
+  - `#SongTitle` &ndash; Title of the song.
+
+> [!NOTE]
+> **Example**
+>
+> If you download `Unravel` from `Tokyo Ghoul`, and use the format `#AnimeTitle - #Slug (#SongTitle)`, the resulting file name will be `Tokyo Ghoul - Op1 (Unravel)`.
+
+- `capWords` &ndash; Capitalize the first letter of each word in song file names.
+
+- `lowWords` &ndash; Lowercase all letters (except the first one) of each word in song file names.
+
+- `applyImage` &ndash; Attach the key visual image to the song files.
+
+- `upScaleImageWidth` &ndash; Resize the key visual image to the specified width. Set this value to `0` to avoid resizing.
+
+- `incOp` &ndash; Enable downloading of opening theme songs.
+
+- `incEd` &ndash; Enable downloading of ending theme songs.
+
+- `minScore` &ndash; Minimum score an anime must have on your list to be included.
+
+- `maxScore` &ndash; Maximum score an anime can have on your list to be included.
+
+- `statusList` &ndash; Filter anime by their status in your anime list. Below are the possible status options (use `|` to separate multiple options).
+    - `Completed` - Anime you have finished.
+    - `Current` - Anime you are currently watching.
+    - `Repeating` - Anime you are re-watching.
+    - `Paused` - Anime you have paused.
+    - `Dropped` - Anime you have dropped.
+    - `Planning` - Anime you plan to watch.
+
+## 🛠️ How To Build
+
+```
+go mod tidy
+
+go run cmd/app/AniLody.go
+```
+
+---
+
+<div align="center">
+  Copyright &#169; 2025 PyroWilDx. All Rights Reserved.
+</div>
