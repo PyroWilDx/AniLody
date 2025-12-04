@@ -13,7 +13,7 @@ A tool for downloading opening and ending songs based on your [AniList](https://
 <div align="center">
 
 [![Windows](https://img.shields.io/badge/Download-Windows-blue?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
-[![MacOS](https://img.shields.io/badge/Download-MacOS-000000?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
+[![Mac](https://img.shields.io/badge/Download-Mac-000000?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
 [![Linux](https://img.shields.io/badge/Download-Linux-FCC624?style=flat-square)](https://github.com/PyroWilDx/AniLody/releases/)
 
 </div>
@@ -46,9 +46,7 @@ The configuration file is located at [`config/Config.txt`](config/Config.txt). B
   - `#SongTitle` &ndash; Title of the song.
 
 > [!NOTE]
-> **Example**
->
-> If you download `Unravel` from `Tokyo Ghoul`, and use the format `#AnimeTitle - #Slug (#SongTitle)`, the resulting file name will be `Tokyo Ghoul - Op1 (Unravel)`.
+> Example &ndash; If you download `Unravel` from `Tokyo Ghoul`, and use the format `#AnimeTitle - #Slug (#SongTitle)`, the resulting file name will be `Tokyo Ghoul - Op1 (Unravel)`.
 
 - `capWords` &ndash; Capitalize the first letter of each word in song file names.
 
